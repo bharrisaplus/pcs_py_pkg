@@ -41,7 +41,10 @@ if __name__ == '__main__':
         testGroupRunner = unittest.TextTestRunner()
 
         if testRunnerArgs.shape:
-            testGroup.addTest(shape_spec.ShapeCheck('test_sham'))
+            testGroup.addTest(shape_spec.ShapeCheck('test_setup_52'))
+            testGroup.addTest(shape_spec.ShapeCheck('test_shuffle'))
+            testGroup.addTest(shape_spec.ShapeCheck('test_cut'))
+            testGroup.addTest(shape_spec.ShapeCheck('test_cut_arbitrary'))
 
         if testRunnerArgs.behavior:
             testGroup.addTest(behavior_spec.BehaviorCheck('test_sham'))
