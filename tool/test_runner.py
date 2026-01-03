@@ -8,6 +8,7 @@ from spec import shape_spec
 from spec import metric_spec
 from spec import behavior_spec
 from spec import widget_spec
+from spec import randomness_spec
 
 if __name__ == '__main__':
     testRunnerParser = argparse.ArgumentParser(prog="tool.test_runner",
@@ -30,6 +31,10 @@ if __name__ == '__main__':
         help="Run tests for verifying the correct information is passed to the gui"
     )
 
+    testRunnerParser.add_argument("-r", "--random", action="store_true",
+        help="Run tests for longer checks of randomness in app output"
+    )
+
     if len(sys.argv) > 1:
         testRunnerArgs = testRunnerParser.parse_args()
         testGroup = unittest.TestSuite()
@@ -47,6 +52,9 @@ if __name__ == '__main__':
 
         if testRunnerArgs.widget:
             testGroup.addTest(widget_spec.WidgetCheck('test_sham'))
+
+        if testRunnerArgs.random:
+            testGroup.addTest(randomness_spec.RandomnessCheck('test_card_shuffle_jaro'))
 
         testGroupRunner.run(testGroup)
     else:
