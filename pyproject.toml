@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pcs"
+description = "For producing a pseudo-randomized list of playing cards (♠️♦️♣️♥️). A (p)seudo (c)ard (s)huffle."
+dynamic = [ "version", "readme" ]
+
+license = "GPL-3.0"
+license-files = ["LICENSE.md"]
+
+requires-python = ">= 3.10"
+dependencies = ["pillow"]
+
+keywords = ["cards", "shuffle", "playing cards"]
+classifiers = [
+	"Development Status :: 4 - Beta",
+	"Programming Language :: Python :: 3"
+]
+
+authors = [
+	{ name = "Barry Harris", email = "bharrisaplus@gmail.com" }
+]
+
+[project.urls]
+"Homepage" = 'https://pcs_py.github.io/'
+"Repository" = 'https://github.com/bharrisaplus/pcs_py'
+
+[project.scripts]
+pcs = "pcs.command_line:go"
+
+[tool.setuptools]
+packages = ['pcs']
+
+[tool.setuptools.dynamic]
+version = { attr = 'pcs.__meta__.__version__' }
+readme = { file = [ "README.rst" ] }

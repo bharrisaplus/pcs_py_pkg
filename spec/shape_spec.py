@@ -1,0 +1,76 @@
+import unittest
+
+import pcs._utils as PCSUtils
+from pcs.card_shuffle import CardShuffle
+
+card_order = [('spade', 1),('spade', 2),('spade', 3),('spade', 4),('spade', 5),('spade', 6),('spade', 7),('spade', 8),('spade', 9),('spade', 10),('spade', 11),('spade', 12),('spade', 13),('diamond', 1),('diamond', 2),('diamond', 3),('diamond', 4),('diamond', 5),('diamond', 6),('diamond', 7),('diamond', 8),('diamond', 9),('diamond', 10),('diamond', 11),('diamond', 12),('diamond', 13),('club', 13),('club', 12),('club', 11),('club', 10),('club', 9),('club', 8),('club', 7),('club', 6),('club', 5),('club', 4),('club', 3),('club', 2),('club', 1),('heart', 13),('heart', 12),('heart', 11),('heart', 10),('heart', 9),('heart', 8),('heart', 7),('heart', 6),('heart', 5),('heart', 4),('heart', 3),('heart', 2),('heart', 1)]
+
+class ShapeCheck(unittest.TestCase):
+    def test_setup_52(self):
+        maybe_new_deck_order = PCSUtils._setup_52()
+
+        self.assertEqual(len(maybe_new_deck_order[0]), 52,
+            "The starting deck should contain 52 cards"
+        )
+
+        self.assertEqual(maybe_new_deck_order[0], card_order,
+            "The starting should be in new deck order"
+        )
+
+    def test_shuffle(self):
+        card_order_len = len(card_order)
+        test_dealer = CardShuffle()
+        
+        test_dealer.shuffle_cards()
+
+        solution = test_dealer.mixed_cards
+
+        self.assertEqual(len(solution), card_order_len,
+            "The shuffled deck should retain the same number of cards as before the shuffle"
+        )
+
+        self.assertNotEqual(solution, card_order,
+            "The shuffled deck should not be the same as new deck order"
+        )
+
+    def test_cut(self):
+        swear_mix = [('diamond', 13), ('spade', 10), ('spade', 2), ('heart', 11), ('spade', 8), ('heart', 6), ('heart', 13), ('heart', 9), ('spade', 6), ('spade', 12), ('spade', 3), ('spade', 5), ('diamond', 1), ('diamond', 10), ('spade', 7), ('club', 5), ('club', 4), ('club', 11), ('diamond', 9), ('diamond', 2), ('diamond', 7), ('heart', 2), ('spade', 11), ('spade', 4), ('diamond', 3), ('spade', 1), ('heart', 10), ('heart', 12), ('heart', 8), ('club', 6), ('spade', 13), ('club', 13), ('heart', 4), ('club', 8), ('club', 2), ('diamond', 8), ('spade', 9), ('club', 9), ('diamond', 11), ('club', 7), ('heart', 3), ('diamond', 5), ('club', 12), ('heart', 7), ('club', 3), ('heart', 1), ('heart', 5), ('diamond', 6), ('club', 10), ('club', 1), ('diamond', 4), ('diamond', 12)]
+        swear_cut = [('club', 4), ('club', 11), ('diamond', 9), ('diamond', 2), ('diamond', 7), ('heart', 2), ('spade', 11), ('spade', 4), ('diamond', 3), ('spade', 1), ('heart', 10), ('heart', 12), ('heart', 8), ('club', 6), ('spade', 13), ('club', 13), ('heart', 4), ('club', 8), ('club', 2), ('diamond', 8), ('spade', 9), ('club', 9), ('diamond', 11), ('club', 7), ('heart', 3), ('diamond', 5), ('club', 12), ('heart', 7), ('club', 3), ('heart', 1), ('heart', 5), ('diamond', 6), ('club', 10), ('club', 1), ('diamond', 4), ('diamond', 12), ('diamond', 13), ('spade', 10), ('spade', 2), ('heart', 11), ('spade', 8), ('heart', 6), ('heart', 13), ('heart', 9), ('spade', 6), ('spade', 12), ('spade', 3), ('spade', 5), ('diamond', 1), ('diamond', 10), ('spade', 7), ('club', 5)]
+        test_dealer = CardShuffle()
+        test_dealer.mixed_cards = swear_mix
+
+        test_dealer.maybe_cut()
+
+        solution = test_dealer.mixed_cards
+
+        self.assertEqual(len(solution), len(swear_mix),
+            "The peapod cut deck should retain the same number of cards as before the cut"
+        )
+
+        self.assertEqual(swear_mix.index(solution[0]), swear_mix.index(swear_cut[0]),
+            "The peapod cut deck should be cut at the first consecutive pair"
+        )
+
+    def test_cut_arbitrary(self):
+        swear_mix = [('diamond', 13), ('spade', 10), ('spade', 2), ('heart', 11), ('spade', 8), ('heart', 6), ('heart', 13), ('heart', 9), ('spade', 6), ('spade', 12), ('spade', 3), ('spade', 5), ('diamond', 1), ('diamond', 10), ('spade', 7), ('club', 5), ('club', 4), ('club', 11), ('diamond', 9), ('diamond', 2), ('diamond', 7), ('heart', 2), ('spade', 11), ('spade', 4), ('diamond', 3), ('spade', 1), ('heart', 10), ('heart', 12), ('heart', 8), ('club', 6), ('spade', 13), ('club', 13), ('heart', 4), ('club', 8), ('club', 2), ('diamond', 8), ('spade', 9), ('club', 9), ('diamond', 11), ('club', 7), ('heart', 3), ('diamond', 5), ('club', 12), ('heart', 7), ('club', 3), ('heart', 1), ('heart', 5), ('diamond', 6), ('club', 10), ('club', 1), ('diamond', 4), ('diamond', 12)]
+        test_dealer = CardShuffle()
+        test_dealer.mixed_cards = swear_mix
+
+        test_dealer.maybe_cut(isArbitrary=True)
+        
+        solution = test_dealer.mixed_cards
+
+        self.assertEqual(len(solution), len(swear_mix),
+            "The arbitrary cut deck should retain the same number of cards as before the cut"
+        )
+
+        check_idx = swear_mix.index(solution[0])
+        check_range = [
+            swear_mix[max(0, check_idx - 1)],
+            swear_mix[check_idx],
+            swear_mix[min(len(solution), check_idx + 1)]
+        ]
+
+        self.assertIn(solution[0], check_range,
+            "The arbitrary cut deck should be cut at the first consecutive pair"
+        )
