@@ -1,0 +1,21 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+pillow = "*"
+
+[dev-packages]
+flake8 = "*"
+pylint = "*"
+
+[requires]
+python_version = "3.12"
+
+[scripts]
+specs_all = "python -m tool.test_runner -sbmw"
+specs_behavior = "python -m tool.test_runner -b"
+specs_metric = "python -m tool.test_runner -m"
+specs_shape = "python -m tool.test_runner -s"
+specs_widget = "python -m tool.test_runner -w"
