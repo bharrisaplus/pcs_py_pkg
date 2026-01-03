@@ -9,6 +9,8 @@ pillow = "*"
 [dev-packages]
 flake8 = "*"
 pylint = "*"
+numpy = "*"
+scipy = "*"
 
 [requires]
 python_version = "3.12"
