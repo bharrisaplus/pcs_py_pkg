@@ -62,6 +62,11 @@ if __name__ == '__main__':
 
         if testRunnerArgs.random:
             testGroup.addTest(randomness_spec.RandomnessCheck('test_card_shuffle_jaro'))
+            #testGroup.addTest(randomness_spec.RandomnessCheck('test_card_shuffle_cut_jaro'))
+            #testGroup.addTest(randomness_spec.RandomnessCheck('test_card_shuffle_arbitrary_cut_jaro'))
+            #testGroup.addTest(randomness_spec.RandomnessCheck('test_card_shuffle_peapod'))
+            #testGroup.addTest(randomness_spec.RandomnessCheck('test_card_shuffle_cut_peapod'))
+            #testGroup.addTest(randomness_spec.RandomnessCheck('test_card_shuffle_arbitrary_cut_peapod'))
 
         testGroupRunner.run(testGroup)
     else:
