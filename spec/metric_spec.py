@@ -75,7 +75,7 @@ class MetricCheck(unittest.TestCase):
         self.assertEqual(solution[0], 1, "Should be 1 ripe peapod in {}".format(ex_g))
         self.assertEqual(solution[1], 15, "Should be 15 green peapods in {}".format(ex_h))
 
-    def test_peapod_agin(self):
+    def test_peapod_again(self):
         ex_i = [24,25,19,18,23,21,22,26,20]
         ex_j = [18,19,20,21,22,23,24,25,26]
 

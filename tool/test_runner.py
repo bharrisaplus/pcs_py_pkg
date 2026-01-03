@@ -48,7 +48,11 @@ if __name__ == '__main__':
 
         if testRunnerArgs.metric:
             testGroup.addTest(metric_spec.MetricCheck('test_jaro'))
+            #testGroup.addTest(metric_spec.MetricCheck('test_jaro_again'))
+            #testGroup.addTest(metric_spec.MetricCheck('test_jaro_again_again'))
             testGroup.addTest(metric_spec.MetricCheck('test_peapod'))
+            #testGroup.addTest(metric_spec.MetricCheck('test_peapod_again'))
+            #testGroup.addTest(metric_spec.MetricCheck('test_peapod_again_again'))
 
         if testRunnerArgs.widget:
             testGroup.addTest(widget_spec.WidgetCheck('test_sham'))
