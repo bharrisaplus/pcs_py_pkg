@@ -69,10 +69,7 @@ class CardShuffle:
                     previous_info = info
                     continue
 
-                if info[0] == previous_info[0] and (
-                    info[1] == previous_info[1] - 1 or
-                    info[1] == previous_info[1] + 1
-                ):
+                if abs(self.card_pool.index(previous_info) - self.card_pool.index(info)) == 1:
                     cut_position = idx_info
                     break
 
