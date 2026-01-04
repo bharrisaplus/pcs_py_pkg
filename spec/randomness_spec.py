@@ -20,6 +20,7 @@ class RandomnessCheck(unittest.TestCase):
     d) Kendall rank correlation between the shuffled cards and new deck order
     e) Kendall rank correlation between the shuffled decks
     '''
+
     def setUp(self):
         self.new_deck_order_positions = list(range(len(card_order)))
 
@@ -279,7 +280,7 @@ class RandomnessCheck(unittest.TestCase):
 
         self.debug_report_chi_stats(chi_sq, p_val)
 
-        self.assertTrue(p_val >= 0, "The frequency of each card in each position after shuffle and peapod cut should be close to uniform")
+        self.assertTrue(p_val > 0, "The frequency of each card in each position after shuffle and peapod cut should be close to uniform")
 
 
     @unittest.skip("one at a time")
@@ -307,7 +308,7 @@ class RandomnessCheck(unittest.TestCase):
 
         self.debug_report_chi_stats(chi_sq, p_val)
 
-        self.assertTrue(p_val >= 0, "The frequency of each card in each position after shuffle and arbitrary cut should be close to uniform")
+        self.assertTrue(p_val > 0, "The frequency of each card in each position after shuffle and arbitrary cut should be close to uniform")
 
 
     @unittest.skip("not yet")
