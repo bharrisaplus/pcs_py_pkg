@@ -235,7 +235,7 @@ class RandomnessCheck(unittest.TestCase):
 
         for _ in range(test_run_count):
             test_dealer = CardShuffle()
-            test_dealer.card_pool = list(range(len(card_order)))
+            test_dealer.card_pool = self.new_deck_order_positions
 
             test_dealer.shuffle_cards()
 
@@ -261,7 +261,7 @@ class RandomnessCheck(unittest.TestCase):
 
         for _ in range(test_run_count):
             test_dealer = CardShuffle()
-            test_dealer.card_pool = list(range(len(card_order)))
+            test_dealer.card_pool = self.new_deck_order_positions
 
             test_dealer.shuffle_cards()
             test_dealer.maybe_cut()
@@ -289,7 +289,7 @@ class RandomnessCheck(unittest.TestCase):
 
         for _ in range(test_run_count):
             test_dealer = CardShuffle()
-            test_dealer.card_pool = list(range(len(card_order)))
+            test_dealer.card_pool = self.new_deck_order_positions
 
             test_dealer.shuffle_cards()
             test_dealer.maybe_cut(is_arbitrary=True)
