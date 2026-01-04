@@ -39,12 +39,12 @@ class RandomnessCheck(unittest.TestCase):
         print("\nThe mean compared to accpated value: {} +- {} vs {}".format(_mean, _std, 2.0))
 
 
-    def debug_report_chi_stats(chisq, pval):
+    def debug_report_chi_stats(self, chisq, pval):
         print("\nThe chi-square value for the data: {}".format(chisq))
-        print("\nThe p-value for the data: {}").format(pval)
+        print("\nThe p-value for the data: {}".format(pval))
 
 
-    def debug_report_kendall_stats():
+    def debug_report_kendall_stats(self):
         return None
 
     @unittest.skip("one at a time")
@@ -228,9 +228,31 @@ class RandomnessCheck(unittest.TestCase):
         self.assertTrue(acceptance_check_passed, "The number of consecutive pairs should be around 2")
 
 
-    @unittest.skip("not yet")
+    @unittest.skip("one at a time")
     def test_card_shuffle_chi(self):
-        self.assertEqual(0, 0, "Nothing to see here yet")
+        test_run_count = 10000
+        test_result_matrix = numpy.zeros((52, 52), dtype=int)
+
+        for _ in range(test_run_count):
+            test_dealer = CardShuffle()
+            test_dealer.card_pool = list(range(len(card_order)))
+
+            test_dealer.shuffle_cards()
+
+            for card_pos, card in enumerate(test_dealer.mixed_cards):
+                test_result_matrix[card][card_pos] += 1
+
+        observed_values = test_result_matrix.flatten()
+        expected_values = numpy.full(observed_values.shape, test_run_count / 52)
+
+        # scale
+        expected_values = expected_values * (numpy.sum(observed_values) / numpy.sum(expected_values))
+
+        chi_sq, p_val = SciPyStats.chisquare(observed_values, f_exp=expected_values)
+
+        self.debug_report_chi_stats(chi_sq, p_val)
+
+        self.assertTrue(p_val >= 0.83, "The frequency of each card in each position should be close to uniform")
 
     @unittest.skip("not yet")
     def test_card_shuffle_cut_chi(self):
