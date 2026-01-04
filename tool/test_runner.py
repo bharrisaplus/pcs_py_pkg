@@ -68,6 +68,8 @@ if __name__ == '__main__':
             #testGroup.addTest(randomness_spec.RandomnessCheck('test_card_shuffle_cut_peapod'))
             #testGroup.addTest(randomness_spec.RandomnessCheck('test_card_shuffle_arbitrary_cut_peapod'))test_card_shuffle_chi
             #testGroup.addTest(randomness_spec.RandomnessCheck('test_card_shuffle_chi'))
+            #testGroup.addTest(randomness_spec.RandomnessCheck('test_card_shuffle_cut_chi'))
+            #testGroup.addTest(randomness_spec.RandomnessCheck('test_card_shuffle_arbitrary_cut_chi'))
 
         testGroupRunner.run(testGroup)
     else:
