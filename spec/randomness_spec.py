@@ -54,10 +54,11 @@ class RandomnessCheck(unittest.TestCase):
 
         for text_idx in range(len(jaro_measurement)):
             test_dealer = CardShuffle()
+            test_dealer.card_pool = self.new_deck_order_positions
 
             test_dealer.shuffle_cards()
 
-            jaro_similarity = CardShuffleStats.get_jaro_edit_distance_from(test_dealer.mixed_cards, card_order)
+            jaro_similarity = CardShuffleStats.get_jaro_edit_distance_from(test_dealer.mixed_cards, test_dealer.card_pool)
             jaro_measurement[text_idx] = jaro_similarity[0]
 
         sample_mean = PyStat.mean(jaro_measurement)
@@ -85,11 +86,12 @@ class RandomnessCheck(unittest.TestCase):
 
         for text_idx in range(len(jaro_measurement)):
             test_dealer = CardShuffle()
+            test_dealer.card_pool = self.new_deck_order_positions
 
             test_dealer.shuffle_cards()
             test_dealer.maybe_cut()
 
-            jaro_similarity = CardShuffleStats.get_jaro_edit_distance_from(test_dealer.mixed_cards, card_order)
+            jaro_similarity = CardShuffleStats.get_jaro_edit_distance_from(test_dealer.mixed_cards, test_dealer.card_pool)
             jaro_measurement[text_idx] = jaro_similarity[0]
 
         sample_mean = PyStat.mean(jaro_measurement)
@@ -117,11 +119,12 @@ class RandomnessCheck(unittest.TestCase):
 
         for text_idx in range(len(jaro_measurement)):
             test_dealer = CardShuffle()
+            test_dealer.card_pool = self.new_deck_order_positions
 
             test_dealer.shuffle_cards()
             test_dealer.maybe_cut(is_arbitrary=True)
 
-            jaro_similarity = CardShuffleStats.get_jaro_edit_distance_from(test_dealer.mixed_cards, card_order)
+            jaro_similarity = CardShuffleStats.get_jaro_edit_distance_from(test_dealer.mixed_cards, test_dealer.card_pool)
             jaro_measurement[text_idx] = jaro_similarity[0]
 
         sample_mean = PyStat.mean(jaro_measurement)
@@ -149,10 +152,11 @@ class RandomnessCheck(unittest.TestCase):
 
         for text_idx in range(len(peapod_measurement)):
             test_dealer = CardShuffle()
+            test_dealer.card_pool = self.new_deck_order_positions
 
             test_dealer.shuffle_cards()
 
-            peapod_count = CardShuffleStats.count_peapods_from(test_dealer.mixed_cards, card_order)
+            peapod_count = CardShuffleStats.count_peapods_from(test_dealer.mixed_cards, test_dealer.card_pool)
             peapod_measurement[text_idx] = peapod_count[0]
 
         sample_mean = PyStat.mean(peapod_measurement)
@@ -177,11 +181,12 @@ class RandomnessCheck(unittest.TestCase):
 
         for text_idx in range(len(peapod_measurement)):
             test_dealer = CardShuffle()
+            test_dealer.card_pool = self.new_deck_order_positions
 
             test_dealer.shuffle_cards()
             test_dealer.maybe_cut()
 
-            peapod_count = CardShuffleStats.count_peapods_from(test_dealer.mixed_cards, card_order)
+            peapod_count = CardShuffleStats.count_peapods_from(test_dealer.mixed_cards, test_dealer.card_pool)
             peapod_measurement[text_idx] = peapod_count[0]
 
         sample_mean = PyStat.mean(peapod_measurement)
@@ -206,11 +211,12 @@ class RandomnessCheck(unittest.TestCase):
 
         for text_idx in range(len(peapod_measurement)):
             test_dealer = CardShuffle()
+            test_dealer.card_pool = self.new_deck_order_positions
 
             test_dealer.shuffle_cards()
             test_dealer.maybe_cut(is_arbitrary=True)
 
-            peapod_count = CardShuffleStats.count_peapods_from(test_dealer.mixed_cards, card_order)
+            peapod_count = CardShuffleStats.count_peapods_from(test_dealer.mixed_cards, test_dealer.card_pool)
             peapod_measurement[text_idx] = peapod_count[0]
 
         sample_mean = PyStat.mean(peapod_measurement)
