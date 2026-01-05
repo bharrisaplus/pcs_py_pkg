@@ -329,10 +329,15 @@ class RandomnessCheck(unittest.TestCase):
         p_value_std = PyStat.stdev(p_value_measurement, p_value_mean)
 
         acceptance_check_passed = (
-            math.isclose(tau_mean, 0, rel_tol=0.000005) or
-            p_value_mean > 0.05 or
-            p_value_mean - p_value_std > 0.05 or
-            p_value_mean + p_value_std > 0.05
+            (
+                -1 < tau_mean < 1 or
+                -1 < tau_mean - tau_std < 1 or
+                -1 < tau_mean + tau_std < 1
+            ) and (
+                p_value_mean > 0.05 or
+                p_value_mean - p_value_std > 0.05 or
+                p_value_mean + p_value_std > 0.05
+            )
         )
 
         self.debug_report_kendall_stats(
@@ -365,10 +370,15 @@ class RandomnessCheck(unittest.TestCase):
         p_value_std = PyStat.stdev(p_value_measurement, p_value_mean)
 
         acceptance_check_passed = (
-            math.isclose(tau_mean, 0, rel_tol=0.000005) or
-            p_value_mean > 0.05 or
-            p_value_mean - p_value_std > 0.05 or
-            p_value_mean + p_value_std > 0.05
+            (
+                -1 < tau_mean < 1 or
+                -1 < tau_mean - tau_std < 1 or
+                -1 < tau_mean + tau_std < 1
+            ) and (
+                p_value_mean > 0.05 or
+                p_value_mean - p_value_std > 0.05 or
+                p_value_mean + p_value_std > 0.05
+            )
         )
 
         self.debug_report_kendall_stats(
@@ -401,10 +411,15 @@ class RandomnessCheck(unittest.TestCase):
         p_value_std = PyStat.stdev(p_value_measurement, p_value_mean)
 
         acceptance_check_passed = (
-            math.isclose(tau_mean, 0, rel_tol=0.000005) or
-            p_value_mean > 0.05 or
-            p_value_mean - p_value_std > 0.05 or
-            p_value_mean + p_value_std > 0.05
+            (
+                -1 < tau_mean < 1 or
+                -1 < tau_mean - tau_std < 1 or
+                -1 < tau_mean + tau_std < 1
+            ) and (
+                p_value_mean > 0.05 or
+                p_value_mean - p_value_std > 0.05 or
+                p_value_mean + p_value_std > 0.05
+            )
         )
 
         self.debug_report_kendall_stats(
