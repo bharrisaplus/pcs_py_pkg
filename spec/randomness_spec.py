@@ -47,9 +47,9 @@ class RandomnessCheck(unittest.TestCase):
 
     def debug_report_kendall_stats(self, tau, pval):
         print("\nThe mean for the tau statistic: {}".format(tau[0]))
-        print("\nThe mean for the p-value: {}".format(pval[0]))
         print("The standard deviation for tau: {}".format(tau[1]))
         print("The data for tau ranged between {} and {}".format(tau[2], tau[3]))
+        print("The mean for the p-value: {}".format(pval[0]))
         print("The standard deviation for p-value: {}".format(pval[1]))
         print("The data for p-value ranged between {} and {}".format(pval[2], pval[3]))
 
@@ -309,7 +309,38 @@ class RandomnessCheck(unittest.TestCase):
 
     @unittest.skip("not yet")
     def test_card_shuffle_kendall(self):
-        self.assertEqual(0, 0, "Nothing to see here yet")
+        tau_measurement = [0] * 10000
+        p_value_measurement = [0] * 10000
+
+        for idx in range(len(tau_measurement)):
+            test_dealer = CardShuffle()
+            test_dealer.card_pool = self.new_deck_order_positions
+
+            test_dealer.shuffle_cards()
+
+            tau, p_value = SciPyStats.kendalltau(test_dealer.mixed_cards, test_dealer.card_pool)
+
+            tau_measurement[idx] = tau
+            p_value_measurement[idx] = p_value
+
+        tau_mean = PyStat.mean(tau_measurement)
+        tau_std = PyStat.stdev(tau_measurement, tau_mean)
+        p_value_mean = PyStat.mean(p_value_measurement)
+        p_value_std = PyStat.stdev(p_value_measurement, p_value_mean)
+
+        acceptance_check_passed = (
+            math.isclose(tau_mean, 0, rel_tol=0.000005) or
+            p_value_mean > 0.05 or
+            p_value_mean - p_value_std > 0.05 or
+            p_value_mean + p_value_std > 0.05
+        )
+
+        self.debug_report_kendall_stats(
+            (tau_mean, tau_std, min(tau_measurement), max(tau_measurement)),
+            (p_value_mean, p_value_std, min(p_value_measurement), max(p_value_measurement))
+        )
+
+        self.assertTrue(acceptance_check_passed, "The tau and p-value should be within accepted ranges")
 
     @unittest.skip("not yet")
     def test_card_shuffle_cut_kendall(self):
