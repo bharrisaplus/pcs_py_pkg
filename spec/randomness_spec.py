@@ -65,12 +65,8 @@ class RandomnessCheck(unittest.TestCase):
         sample_std = PyStat.stdev(jaro_measurement, sample_mean)
 
         acceptance_check_passed = (
-            math.isclose(sample_mean - sample_std, 0.6676, rel_tol=0.05) or
-            math.isclose(sample_mean, 0.6676, rel_tol=0.05) or
-            math.isclose(sample_mean + sample_std, 0.6676, rel_tol=0.05) or
-            math.isclose(sample_mean - sample_std, 0.6662, rel_tol=0.05) or
-            math.isclose(sample_mean, 0.6662, rel_tol=0.05) or
-            math.isclose(sample_mean + sample_std, 0.6662, rel_tol=0.05)
+            math.isclose(sample_mean, 0.6676, rel_tol=sample_std) or
+            math.isclose(sample_mean, 0.6662, rel_tol=sample_std)
         )
 
         self.debug_report_jaro_stats(sample_mean, sample_std, min(jaro_measurement), max(jaro_measurement))
@@ -98,12 +94,8 @@ class RandomnessCheck(unittest.TestCase):
         sample_std = PyStat.stdev(jaro_measurement, sample_mean)
 
         acceptance_check_passed = (
-            math.isclose(sample_mean - sample_std, 0.6676, rel_tol=0.05) or
-            math.isclose(sample_mean, 0.6676, rel_tol=0.05) or
-            math.isclose(sample_mean + sample_std, 0.6676, rel_tol=0.05) or
-            math.isclose(sample_mean - sample_std, 0.6662, rel_tol=0.05) or
-            math.isclose(sample_mean, 0.6662, rel_tol=0.05) or
-            math.isclose(sample_mean + sample_std, 0.6662, rel_tol=0.05)
+            math.isclose(sample_mean, 0.6676, rel_tol=sample_std) or
+            math.isclose(sample_mean, 0.6662, rel_tol=sample_std)
         )
 
         self.debug_report_jaro_stats(sample_mean, sample_std, min(jaro_measurement), max(jaro_measurement))
@@ -131,12 +123,8 @@ class RandomnessCheck(unittest.TestCase):
         sample_std = PyStat.stdev(jaro_measurement, sample_mean)
 
         acceptance_check_passed = (
-            math.isclose(sample_mean - sample_std, 0.6676, rel_tol=0.05) or
-            math.isclose(sample_mean, 0.6676, rel_tol=0.05) or
-            math.isclose(sample_mean + sample_std, 0.6676, rel_tol=0.05) or
-            math.isclose(sample_mean - sample_std, 0.6662, rel_tol=0.05) or
-            math.isclose(sample_mean, 0.6662, rel_tol=0.05) or
-            math.isclose(sample_mean + sample_std, 0.6662, rel_tol=0.05)
+            math.isclose(sample_mean, 0.6676, rel_tol=sample_std) or
+            math.isclose(sample_mean, 0.6662, rel_tol=sample_std)
         )
 
         self.debug_report_jaro_stats(sample_mean, sample_std, min(jaro_measurement), max(jaro_measurement))
@@ -163,9 +151,8 @@ class RandomnessCheck(unittest.TestCase):
         sample_std = PyStat.stdev(peapod_measurement, sample_mean)
 
         acceptance_check_passed = (
-            math.isclose(sample_mean - sample_std, 2, rel_tol=0.5) or
-            math.isclose(sample_mean, 2, rel_tol=0.5) or
-            math.isclose(sample_mean + sample_std, 2, rel_tol=0.5)
+            math.isclose(sample_mean, 2, rel_tol=sample_std) or
+            math.isclose(sample_mean, 2, rel_tol=sample_std)
         )
 
         self.debug_report_peapod_stats(
@@ -193,9 +180,8 @@ class RandomnessCheck(unittest.TestCase):
         sample_std = PyStat.stdev(peapod_measurement, sample_mean)
 
         acceptance_check_passed = (
-            math.isclose(sample_mean - sample_std, 2, rel_tol=0.5) or
-            math.isclose(sample_mean, 2, rel_tol=0.5) or
-            math.isclose(sample_mean + sample_std, 2, rel_tol=0.5)
+            math.isclose(sample_mean, 2, rel_tol=sample_std) or
+            math.isclose(sample_mean, 2, rel_tol=sample_std)
         )
 
         self.debug_report_peapod_stats(
@@ -223,9 +209,8 @@ class RandomnessCheck(unittest.TestCase):
         sample_std = PyStat.stdev(peapod_measurement, sample_mean)
 
         acceptance_check_passed = (
-            math.isclose(sample_mean - sample_std, 2, rel_tol=0.5) or
-            math.isclose(sample_mean, 2, rel_tol=0.5) or
-            math.isclose(sample_mean + sample_std, 2, rel_tol=0.5)
+            math.isclose(sample_mean, 2, rel_tol=sample_std) or
+            math.isclose(sample_mean, 2, rel_tol=sample_std)
         )
 
         self.debug_report_peapod_stats(
