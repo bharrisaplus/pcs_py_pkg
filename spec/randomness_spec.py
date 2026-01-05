@@ -45,8 +45,13 @@ class RandomnessCheck(unittest.TestCase):
         print("\nThe p-value for the data: {}".format(pval))
 
 
-    def debug_report_kendall_stats(self):
-        return None
+    def debug_report_kendall_stats(self, tau, pval):
+        print("\nThe mean for the tau statistic: {}".format(tau[0]))
+        print("\nThe mean for the p-value: {}".format(pval[0]))
+        print("The standard deviation for tau: {}".format(tau[1]))
+        print("The data for tau ranged between {} and {}".format(tau[2], tau[3]))
+        print("The standard deviation for p-value: {}".format(pval[1]))
+        print("The data for p-value ranged between {} and {}".format(pval[2], pval[3]))
 
     @unittest.skip("one at a time")
     def test_card_shuffle_jaro(self):
