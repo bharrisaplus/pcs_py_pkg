@@ -85,25 +85,11 @@ class CloseUp():
             text=chr(int(floppy_code, 16)), command=self._save_window_command()
         ).pack()
 
-        for frame_idx, card_info in enumerate(self.cards_for_display[:13]):
-            tkinter.Label(
-                self.cardFrame, text=card_info[0], font=self.cardStyle, fg=card_info[1]
-            ).grid(column=frame_idx, row=0)
-
-        for frame_idx, card_info in enumerate(self.cards_for_display[13:26]):
-            tkinter.Label(
-                self.cardFrame, text=card_info[0], font=self.cardStyle, fg=card_info[1]
-            ).grid(column=frame_idx, row=1)
-
-        for frame_idx, card_info in enumerate(self.cards_for_display[26:39]):
-            tkinter.Label(
-                self.cardFrame, text=card_info[0], font=self.cardStyle, fg=card_info[1]
-            ).grid(column=frame_idx, row=2)
-
-        for frame_idx, card_info in enumerate(self.cards_for_display[39:]):
-            tkinter.Label(
-                self.cardFrame, text=card_info[0], font=self.cardStyle, fg=card_info[1]
-            ).grid(column=frame_idx, row=3)
+        for row_idx in range(4):
+            for column_idx, info in enumerate(self.cards_for_display[row_idx*13:(row_idx+1)*13]):
+                tkinter.Label(
+                    self.cardFrame, text=info[0], font=self.cardStyle, fg=info[1]
+                ).grid(column=column_idx, row=row_idx)
 
         self.rootWindow.deiconify()
         self.rootWindow.mainloop()
