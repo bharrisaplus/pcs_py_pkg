@@ -8,7 +8,6 @@ import scipy.stats as SciPyStats
 
 from pcs.card_shuffle import CardShuffle
 import tool.stats as CardShuffleStats
-from spec.shape_spec import card_order
 
 
 class RandomnessCheck(unittest.TestCase):
@@ -22,7 +21,7 @@ class RandomnessCheck(unittest.TestCase):
     '''
 
     def setUp(self):
-        self.new_deck_order_positions = list(range(len(card_order)))
+        self.new_deck_order_positions = list(range(len(52)))
 
 
     def debug_report_jaro_stats(self, _mean, _std, _min, _max):

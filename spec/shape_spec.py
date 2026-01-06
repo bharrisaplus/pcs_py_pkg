@@ -3,59 +3,116 @@ import unittest
 import pcs._utils as PCSUtils
 from pcs.card_shuffle import CardShuffle
 
-card_order = [('spade', 1),('spade', 2),('spade', 3),('spade', 4),('spade', 5),('spade', 6),('spade', 7),('spade', 8),('spade', 9),('spade', 10),('spade', 11),('spade', 12),('spade', 13),('diamond', 1),('diamond', 2),('diamond', 3),('diamond', 4),('diamond', 5),('diamond', 6),('diamond', 7),('diamond', 8),('diamond', 9),('diamond', 10),('diamond', 11),('diamond', 12),('diamond', 13),('club', 13),('club', 12),('club', 11),('club', 10),('club', 9),('club', 8),('club', 7),('club', 6),('club', 5),('club', 4),('club', 3),('club', 2),('club', 1),('heart', 13),('heart', 12),('heart', 11),('heart', 10),('heart', 9),('heart', 8),('heart', 7),('heart', 6),('heart', 5),('heart', 4),('heart', 3),('heart', 2),('heart', 1)]
-
 class ShapeCheck(unittest.TestCase):
-    def test_setup_52(self):
-        maybe_new_deck_order = PCSUtils._setup_52()
+    def test_get_card_name(self):
+        expected_1 = ["ace of spade", "ace of diamond", "ace of club", "ace of heart"]
+        solution_1 = PCSUtils.get_card_title(0)
+        solution_2 = PCSUtils.get_card_title(13)
+        solution_3 = PCSUtils.get_card_title(38)
+        solution_4 = PCSUtils.get_card_title(51)
+        expected_2 = ["king of spade", "king of diamond", "king of club", "king of heart"]
+        solution_5 = PCSUtils.get_card_title(12)
+        solution_6 = PCSUtils.get_card_title(25)
+        solution_7 = PCSUtils.get_card_title(26)
+        solution_8 = PCSUtils.get_card_title(39)
 
-        self.assertEqual(len(maybe_new_deck_order[0]), 52,
-            "The starting deck should contain 52 cards"
+        self.assertEqual([solution_1, solution_2, solution_3, solution_4], expected_1,
+            "The title of a card should be retrieved based on the ndo position of the card"
         )
 
-        self.assertEqual(maybe_new_deck_order[0], card_order,
-            "The starting should be in new deck order"
+        self.assertEqual([solution_5, solution_6, solution_7, solution_8], expected_2,
+            "The title of a card should be retrieved based on the ndo position of the card"
+        )
+
+
+    def test_get_card_symbol(self):
+        expected_1 = [ '🂡', '🃁', '🃑', '🂱' ]
+        solution_1 = PCSUtils.get_card_symbol(0)
+        solution_2 = PCSUtils.get_card_symbol(13)
+        solution_3 = PCSUtils.get_card_symbol(38)
+        solution_4 = PCSUtils.get_card_symbol(51)
+        expected_2 = [ '🂮', '🃎', '🃞', '🂾' ]
+        solution_5 = PCSUtils.get_card_symbol(12)
+        solution_6 = PCSUtils.get_card_symbol(25)
+        solution_7 = PCSUtils.get_card_symbol(26)
+        solution_8 = PCSUtils.get_card_symbol(39)
+
+        self.assertEqual([solution_1, solution_2, solution_3, solution_4], expected_1,
+            "The symbol of a card should be retrieved based on the ndo position of the card"
+        )
+
+        self.assertEqual([solution_5, solution_6, solution_7, solution_8], expected_2,
+            "The symbol of a card should be retrieved based on the ndo position of the card"
+        )
+
+
+    def test_get_card_color(self):
+        expected_1 = [0,1,0,1]
+        solution_1 = PCSUtils.get_card_color(0)
+        solution_2 = PCSUtils.get_card_color(13)
+        solution_3 = PCSUtils.get_card_color(38)
+        solution_4 = PCSUtils.get_card_color(51)
+        solution_5 = PCSUtils.get_card_color(12)
+        solution_6 = PCSUtils.get_card_color(25)
+        solution_7 = PCSUtils.get_card_color(26)
+        solution_8 = PCSUtils.get_card_color(39)
+        expected_2 = [0,1,2,3]
+        solution_9 = PCSUtils.get_card_color(0, four_color=True)
+        solution_10 = PCSUtils.get_card_color(13, four_color=True)
+        solution_11 = PCSUtils.get_card_color(38, four_color=True)
+        solution_12 = PCSUtils.get_card_color(51, four_color=True)
+        solution_13 = PCSUtils.get_card_color(12, four_color=True)
+        solution_14 = PCSUtils.get_card_color(25, four_color=True)
+        solution_15 = PCSUtils.get_card_color(26, four_color=True)
+        solution_16 = PCSUtils.get_card_color(39, four_color=True)
+
+        self.assertEqual([solution_1, solution_2, solution_3, solution_4], expected_1,
+            "The color of a card should be retrieved based on the ndo position of the card"
+        )
+
+        self.assertEqual([solution_5, solution_6, solution_7, solution_8], expected_1,
+            "The color of a card should be retrieved based on the ndo position of the card"
+        )
+
+        self.assertEqual([solution_9, solution_10, solution_11, solution_12], expected_2,
+            "The color of a card should be retrieved based on the ndo position of the card"
         )
 
 
     def test_shuffle(self):
-        card_order_len = len(card_order)
+        card_order = list(range(52))
         test_dealer = CardShuffle()
         
         test_dealer.shuffle_cards()
 
-        solution = test_dealer.mixed_cards
-
-        self.assertEqual(len(solution), card_order_len,
+        self.assertEqual(len(test_dealer.mixed_cards), len(card_order),
             "The shuffled deck should retain the same number of cards as before the shuffle"
         )
 
-        self.assertNotEqual(solution, card_order,
+        self.assertNotEqual(test_dealer.mixed_cards, card_order,
             "The shuffled deck should not be the same as new deck order"
         )
 
 
     def test_cut(self):
-        swear_mix = [('diamond', 13), ('spade', 10), ('spade', 2), ('heart', 11), ('spade', 8), ('heart', 6), ('heart', 13), ('heart', 9), ('spade', 6), ('spade', 12), ('spade', 3), ('spade', 5), ('diamond', 1), ('diamond', 10), ('spade', 7), ('club', 5), ('club', 4), ('club', 11), ('diamond', 9), ('diamond', 2), ('diamond', 7), ('heart', 2), ('spade', 11), ('spade', 4), ('diamond', 3), ('spade', 1), ('heart', 10), ('heart', 12), ('heart', 8), ('club', 6), ('spade', 13), ('club', 13), ('heart', 4), ('club', 8), ('club', 2), ('diamond', 8), ('spade', 9), ('club', 9), ('diamond', 11), ('club', 7), ('heart', 3), ('diamond', 5), ('club', 12), ('heart', 7), ('club', 3), ('heart', 1), ('heart', 5), ('diamond', 6), ('club', 10), ('club', 1), ('diamond', 4), ('diamond', 12)]
-        swear_cut = [('club', 4), ('club', 11), ('diamond', 9), ('diamond', 2), ('diamond', 7), ('heart', 2), ('spade', 11), ('spade', 4), ('diamond', 3), ('spade', 1), ('heart', 10), ('heart', 12), ('heart', 8), ('club', 6), ('spade', 13), ('club', 13), ('heart', 4), ('club', 8), ('club', 2), ('diamond', 8), ('spade', 9), ('club', 9), ('diamond', 11), ('club', 7), ('heart', 3), ('diamond', 5), ('club', 12), ('heart', 7), ('club', 3), ('heart', 1), ('heart', 5), ('diamond', 6), ('club', 10), ('club', 1), ('diamond', 4), ('diamond', 12), ('diamond', 13), ('spade', 10), ('spade', 2), ('heart', 11), ('spade', 8), ('heart', 6), ('heart', 13), ('heart', 9), ('spade', 6), ('spade', 12), ('spade', 3), ('spade', 5), ('diamond', 1), ('diamond', 10), ('spade', 7), ('club', 5)]
+        swear_mix = [25,9,1,41,7,46,39,43,5,11,2,4,13,22,6,34,35,28,21,14,19,50,10,3,15,0,42,40,44,33,12,26,48,31,37,20,8,30,23,32,49,17,27,45,36,51,47,18,29,38,16,24]
+        swear_cut = [35,28,21,14,19,50,10,3,15,0,42,40,44,33,12,26,48,31,37,20,8,30,23,32,49,17,27,45,36,51,47,18,29,38,16,24,25,9,1,41,7,46,39,43,5,11,2,4,13,22,6,34]
         test_dealer = CardShuffle()
         test_dealer.mixed_cards = swear_mix
 
         test_dealer.maybe_cut()
 
-        solution = test_dealer.mixed_cards
-
-        self.assertEqual(len(solution), len(swear_mix),
+        self.assertEqual(len(test_dealer.mixed_cards), len(swear_mix),
             "The peapod cut deck should retain the same number of cards as before the cut"
         )
 
-        self.assertEqual(swear_mix.index(solution[0]), swear_mix.index(swear_cut[0]),
+        self.assertEqual(swear_mix.index(test_dealer.mixed_cards[0]), swear_mix.index(swear_cut[0]),
             "The peapod cut deck should be cut at the first consecutive pair"
         )
 
 
     def test_cut_arbitrary(self):
-        swear_mix = [('diamond', 13), ('spade', 10), ('spade', 2), ('heart', 11), ('spade', 8), ('heart', 6), ('heart', 13), ('heart', 9), ('spade', 6), ('spade', 12), ('spade', 3), ('spade', 5), ('diamond', 1), ('diamond', 10), ('spade', 7), ('club', 5), ('club', 4), ('club', 11), ('diamond', 9), ('diamond', 2), ('diamond', 7), ('heart', 2), ('spade', 11), ('spade', 4), ('diamond', 3), ('spade', 1), ('heart', 10), ('heart', 12), ('heart', 8), ('club', 6), ('spade', 13), ('club', 13), ('heart', 4), ('club', 8), ('club', 2), ('diamond', 8), ('spade', 9), ('club', 9), ('diamond', 11), ('club', 7), ('heart', 3), ('diamond', 5), ('club', 12), ('heart', 7), ('club', 3), ('heart', 1), ('heart', 5), ('diamond', 6), ('club', 10), ('club', 1), ('diamond', 4), ('diamond', 12)]
+        swear_mix = [25,9,1,41,7,46,39,43,5,11,2,4,13,22,6,34,35,28,21,14,19,50,10,3,15,0,42,40,44,33,12,26,48,31,37,20,8,30,23,32,49,17,27,45,36,51,47,18,29,38,16,24]
         test_dealer = CardShuffle()
         test_dealer.mixed_cards = swear_mix
 

@@ -61,7 +61,7 @@ def go():
 
         # Show the cards
 
-        dealer.display_decklist_in_console(to_file=cardShuffleArgs.write)
+        dealer.display_decklist_in_console(to_file=cardShuffleArgs.write, four_color=cardShuffleArgs.four_color)
 
         if cardShuffleArgs.gui:
             dealer.display_decklist_in_gui(four_color=cardShuffleArgs.four_color)

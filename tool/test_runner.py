@@ -41,7 +41,9 @@ if __name__ == '__main__':
         testGroupRunner = unittest.TextTestRunner()
 
         if testRunnerArgs.shape:
-            testGroup.addTest(shape_spec.ShapeCheck('test_setup_52'))
+            testGroup.addTest(shape_spec.ShapeCheck('test_get_card_name'))
+            testGroup.addTest(shape_spec.ShapeCheck('test_get_card_symbol'))
+            testGroup.addTest(shape_spec.ShapeCheck('test_get_card_color'))
             testGroup.addTest(shape_spec.ShapeCheck('test_shuffle'))
             testGroup.addTest(shape_spec.ShapeCheck('test_cut'))
             testGroup.addTest(shape_spec.ShapeCheck('test_cut_arbitrary'))

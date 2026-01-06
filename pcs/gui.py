@@ -3,14 +3,13 @@
 import tkinter
 from turtle import Turtle
 
-from ._constants import (
-    save_icon_utf8 as floppy_code,
-    card_group_a,
-    card_group_b,
-    card_to_utf8
-)
+from ._constants import save_icon_utf8 as floppy_code
 
-from ._utils import _capture_tkinter as screen_grab
+from ._utils import (
+    _capture_tkinter as screen_grab,
+    get_card_color,
+    get_card_symbol
+)
 
 
 class CloseUp():
@@ -18,6 +17,8 @@ class CloseUp():
 
     def __init__(self, window_title, screen_grab_filename='shuffled'):
         self.screen_grab_filename = screen_grab_filename
+        # https://www.tcl-lang.org/man/tcl8.6/TkCmd/colors.htm
+        self.tkinter_card_colors = ['midnight blue', 'firebrick', 'dark olive green', 'DarkOrange2']
 
         self.rootWindow = tkinter.Tk()
         self.rootWindow.withdraw()
@@ -94,32 +95,6 @@ class CloseUp():
         self.rootWindow.deiconify()
         self.rootWindow.mainloop()
 
-    def get_color_for_suite(self, card_suite, color_per_suite=False):
-        '''Pick the tkinter color for the card suite
-
-        Args:
-            card_suite (str):
-            color_per_suite (bool): Whether to use one color per suite (default: False)
-
-        Returns:
-            str: tkinter color name
-        '''
-
-        suite_color = None
-
-        if card_suite in card_group_a:
-            suite_color = 'midnight blue'
-
-            if color_per_suite and card_suite == card_group_a[1]:
-                suite_color = 'dark olive green'
-
-        if card_suite in card_group_b:
-            suite_color = 'firebrick'
-
-            if color_per_suite and card_suite == card_group_b[1]:
-                suite_color = 'DarkOrange2'
-
-        return suite_color
 
     def load_cards(self, cards, color_per_suite=False):
         ''' Create display ready cards
@@ -132,8 +107,8 @@ class CloseUp():
 
         for card in cards:
             _formatted.append((
-                chr(int(card_to_utf8.get(card), 16)),
-                self.get_color_for_suite(card[0], color_per_suite)
+                get_card_symbol(card),
+                self.tkinter_card_colors[get_card_color(card, color_per_suite)]
             ))
 
         self.cards_for_display = _formatted

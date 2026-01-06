@@ -2,9 +2,14 @@
 
 import random
 import os
+import supports_color
 
-from ._constants import card_num_to_name as lookup_card
-from ._utils import _setup_52
+from ._utils import (
+    _setup_52,
+    get_card_title,
+    get_card_color
+)
+
 from .gui import CloseUp
 
 
@@ -24,6 +29,10 @@ class CardShuffle:
         self.position_count = len(self.position_pool)
         self.mixed_cards = [0] * self.position_count
         self.last_cut_position = None
+        # https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
+        self.console_card_colors = ['\033[36m', '\033[31m', '\033[32m', '\033[33m' ]
+        self.console_color_reset = '\033[0m'
+
 
     def shuffle_cards(self):
         '''Randomize the order of given cards and place at random in a new deck
@@ -69,7 +78,7 @@ class CardShuffle:
                     previous_info = info
                     continue
 
-                if abs(self.card_pool.index(previous_info) - self.card_pool.index(info)) == 1:
+                if abs(previous_info - info) == 1:
                     cut_position = idx_info
                     break
 
@@ -80,42 +89,52 @@ class CardShuffle:
 
         self.last_cut_position = cut_position
 
-    def cards_as_text(self):
+    def cards_as_text(self, four_color=False):
         """ Create plain-text output of the card order
-
+    
         Looks like: [ "1) Jack of Spade", "2) Four of Club" ]
 
+        The card order can optionally include color using ANSI escape codes
+
         Returns:
-            list[str]: See description above.
+            tuple(list[str], list[str]): See description above.
         """
 
-        card_catalog = []
+        for_console = []
+        for_file = []
 
         for card_catalog_idx, card_stuff in enumerate(self.mixed_cards, start=1):
-            card_catalog.append("{}) {} of {}".format(
-                card_catalog_idx,
-                lookup_card.get(card_stuff[1]).capitalize(),
-                card_stuff[0].capitalize()
-            ))
+            _line ="{}) {}".format(card_catalog_idx, get_card_title(card_stuff))
 
-        return card_catalog
+            if four_color and supports_color.supportsColor.stdout:
+                for_console.append("{}{}{}".format(
+                    self.console_card_colors[get_card_color(card_stuff, four_color=True)],
+                    _line, self.console_color_reset
+                ))
+            else:
+                for_console.append(_line)
 
-    def display_decklist_in_console(self, to_file=False):
+            for_file.append(_line)
+
+        return for_console, for_file
+
+    def display_decklist_in_console(self, to_file=False, four_color=False):
         '''Output card order to the screen and maybe a file.
 
         Args:
-            to_file (bool): Whether or not to create a file. (default: `False`)
+            to_file (bool): Whether or not to create a file. (default: False)
+            four_color (bool): Whether to use one color pre suite (default: False)
         '''
 
-        card_roll = self.cards_as_text()
+        console_catalog, file_catalog = self.cards_as_text(four_color=four_color)
 
-        print(*card_roll, sep="\n")
+        print(*console_catalog, sep="\n")
 
         if to_file:
             file_descriptor = os.open('shuffled.decklist.txt', os.O_WRONLY | os.O_CREAT | os.O_TRUNC)
 
             with os.fdopen(file_descriptor, mode='w') as out_file:
-                out_file.write("\n".join(card_roll))
+                out_file.write("\n".join(file_catalog))
 
             print("\nDecklist written to 'shuffled.decklist.txt'.")
 
