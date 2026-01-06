@@ -26,13 +26,15 @@ class CloseUp():
         window_width = int(self.rootWindow.winfo_screenwidth() * 0.63)
         self.cardStyle = ('Consolas', int(window_height * 0.1325))
         self.controlsStyle = ('Consolas', int(window_height * 0.033))
-        self.cardFrame = tkinter.Frame(self.rootWindow, bd=0, highlightthickness=0)
-        self.controlsFrame = tkinter.Frame(self.rootWindow, bd=0, highlightthickness=0, pady=9)
         self.cards_for_display = None
 
         self.rootWindow.title(window_title)
         self.rootWindow.geometry("{}x{}".format(window_width, window_height))
         self.rootWindow.grid_columnconfigure(0, weight=1)
+
+        self.cardFrame = tkinter.Frame(self.rootWindow, bd=0, highlightthickness=0)
+        self.controlsFrame = tkinter.Frame(self.rootWindow, bd=0, highlightthickness=0, pady=9)
+
         self.cardFrame.grid()
         self.controlsFrame.grid()
 
