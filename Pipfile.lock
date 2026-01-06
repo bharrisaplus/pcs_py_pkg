@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "95c01954cf984f9afe416b0e2db3c54fb05aa6123495df15cd6df622997bdc7b"
+            "sha256": "7790cc629f6980340714c9e661784f807bf4252264d28df75fc6b5a0f72c774b"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -16,6 +16,14 @@
         ]
     },
     "default": {
+        "has-flag": {
+            "hashes": [
+                "sha256:2ade83150630ce9058d4ab07c57f65c10e6d894e8c90a2275b14a9185a3bc533",
+                "sha256:7db35c8fff4d58c9e483868dc1271387e1e838d545ab9734eddeeb8b5378f2ac"
+            ],
+            "markers": "python_version >= '3.6' and python_version < '4.0'",
+            "version": "==0.1.1"
+        },
         "pillow": {
             "hashes": [
                 "sha256:00162e9ca6d22b7c3ee8e61faa3c3253cd19b6a37f126cad04f2f88b306f557d",
@@ -113,6 +121,14 @@
             "index": "pypi",
             "markers": "python_version >= '3.10'",
             "version": "==12.1.0"
+        },
+        "supports-color": {
+            "hashes": [
+                "sha256:209d3e5c7f267b9b7c2dfbae9e2c546ea386b43f1855ccc96639e2769d042d14"
+            ],
+            "index": "pypi",
+            "markers": "python_version >= '3.6' and python_version < '4.0'",
+            "version": "==0.2.0"
         }
     },
     "develop": {
