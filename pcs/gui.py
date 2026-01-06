@@ -42,7 +42,6 @@ class CloseUp():
         Returns:
             tuple: (int, int, int, int)
         '''
-        self.rootWindow.update_idletasks()
 
         capture_area_start_x = self.rootWindow.winfo_rootx()
         capture_area_start_y = self.rootWindow.winfo_rooty()
@@ -58,6 +57,7 @@ class CloseUp():
         def run_command():
             ''' Passed to the command= param for tkinter button widget and invoked upon click '''
 
+            self.rootWindow.update_idletasks()
             screen_grab(self.get_coordinates_for_capture(), self.screen_grab_filename)
             self.rootWindow.destroy()
 
