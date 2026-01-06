@@ -27,7 +27,7 @@ class CloseUp():
         self.cardStyle = ('Consolas', int(window_height * 0.1325))
         self.controlsStyle = ('Consolas', int(window_height * 0.033))
         self.cardFrame = tkinter.Frame(self.rootWindow, bd=0, highlightthickness=0)
-        self.controlsFrame = tkinter.Frame(self.rootWindow, bd=0, highlightthickness=0)
+        self.controlsFrame = tkinter.Frame(self.rootWindow, bd=0, highlightthickness=0, pady=9)
         self.cards_for_display = None
 
         self.rootWindow.title(window_title)
@@ -45,7 +45,7 @@ class CloseUp():
 
         capture_area_start_x = self.rootWindow.winfo_rootx()
         capture_area_start_y = self.rootWindow.winfo_rooty()
-        offset_y = self.controlsFrame.winfo_height() + 20
+        offset_y = self.controlsFrame.winfo_height()
         capture_area_end_x = capture_area_start_x + self.rootWindow.winfo_width()
         capture_area_end_y = capture_area_start_y + self.rootWindow.winfo_height() - offset_y
 
