@@ -67,13 +67,6 @@ class ShapeCheck(unittest.TestCase):
             "The arbitrary cut deck should retain the same number of cards as before the cut"
         )
 
-        check_idx = swear_mix.index(solution[0])
-        check_range = [
-            swear_mix[max(0, check_idx - 1)],
-            swear_mix[check_idx],
-            swear_mix[min(len(solution), check_idx + 1)]
-        ]
-
-        self.assertIn(solution[0], check_range,
-            "The arbitrary cut deck should be cut at the first consecutive pair"
+        self.assertEqual(solution[0], swear_mix[test_dealer.last_cut_position],
+            "The arbitrary cut deck should be cut somwhere in the deck"
         )
