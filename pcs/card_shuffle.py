@@ -12,6 +12,10 @@ from ._utils import (
 
 from .gui import CloseUp
 
+# https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
+console_card_colors = ['\033[36m', '\033[31m', '\033[32m', '\033[33m' ]
+console_color_reset = '\033[0m'
+
 
 class CardShuffle:
     '''A lean mean card shuffling machine
@@ -29,9 +33,6 @@ class CardShuffle:
         self.position_count = len(self.position_pool)
         self.mixed_cards = [0] * self.position_count
         self.last_cut_position = None
-        # https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
-        self.console_card_colors = ['\033[36m', '\033[31m', '\033[32m', '\033[33m' ]
-        self.console_color_reset = '\033[0m'
 
 
     def shuffle_cards(self):
@@ -108,8 +109,8 @@ class CardShuffle:
 
             if four_color and supports_color.supportsColor.stdout:
                 for_console.append("{}{}{}".format(
-                    self.console_card_colors[get_card_color(card_stuff, four_color=True)],
-                    _line, self.console_color_reset
+                    console_card_colors[get_card_color(card_stuff, four_color=True)],
+                    _line, console_color_reset
                 ))
             else:
                 for_console.append(_line)
