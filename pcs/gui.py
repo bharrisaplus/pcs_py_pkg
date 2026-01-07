@@ -29,7 +29,6 @@ class CloseUp():
         self.screen_grab_filename = screen_grab_filename
 
         self.rootWindow = Tk()
-        self.rootWindow.withdraw()
 
         window_height = int(self.rootWindow.winfo_screenheight() * 0.63)
         window_width = int(self.rootWindow.winfo_screenwidth() * 0.63)
@@ -97,7 +96,6 @@ class CloseUp():
                     self.cardFrame, text=info[0], font=self.cardStyle, fg=info[1]
                 ).grid(column=column_idx, row=row_idx)
 
-        self.rootWindow.deiconify()
         self.rootWindow.mainloop()
 
 
