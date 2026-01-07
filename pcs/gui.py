@@ -17,14 +17,16 @@ from ._utils import (
     get_card_symbol
 )
 
+# https://www.tcl-lang.org/man/tcl8.6/TkCmd/colors.htm
+tk_card_colors = ['midnight blue', 'firebrick', 'dark olive green', 'DarkOrange2']
+tk_bg_colors = ["Ivory2"]
+
 
 class CloseUp():
     ''' A view of the card deck '''
 
     def __init__(self, window_title, screen_grab_filename='shuffled'):
         self.screen_grab_filename = screen_grab_filename
-        # https://www.tcl-lang.org/man/tcl8.6/TkCmd/colors.htm
-        self.tkinter_card_colors = ['midnight blue', 'firebrick', 'dark olive green', 'DarkOrange2']
 
         self.rootWindow = Tk()
         self.rootWindow.withdraw()
@@ -110,8 +112,7 @@ class CloseUp():
 
         for card in cards:
             _formatted.append((
-                get_card_symbol(card),
-                self.tkinter_card_colors[get_card_color(card, color_per_suite)]
+                get_card_symbol(card), tk_card_colors[get_card_color(card, color_per_suite)]
             ))
 
         self.cards_for_display = _formatted
