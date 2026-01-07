@@ -61,16 +61,12 @@ class CloseUp():
         return (capture_area_start_x, capture_area_start_y, capture_area_end_x, capture_area_end_y)
 
     def _save_window_command(self):
-        ''' Create wrapper method to grab screenshot and close window '''
+        ''' Click handler to grab screenshot then close window '''
 
-        def run_command():
-            ''' Passed to the command= param for tkinter button widget and invoked upon click '''
+        self.rootWindow.update_idletasks()
+        screen_grab(self.get_coordinates_for_capture(), self.screen_grab_filename)
+        self.rootWindow.destroy()
 
-            self.rootWindow.update_idletasks()
-            screen_grab(self.get_coordinates_for_capture(), self.screen_grab_filename)
-            self.rootWindow.destroy()
-
-        return run_command
 
     def show_window(self):
         ''' Display shuffled cards
@@ -87,9 +83,10 @@ class CloseUp():
 
             When clicked, the saveButton will create an image file of the rootWindow and cardFrame.
         '''
+
         tkButton(
             self.controlsFrame, relief="flat", font=self.controlsStyle, fg="goldenrod3",
-            text=chr(int(floppy_code, 16)), command=self._save_window_command()
+            text=chr(int(floppy_code, 16)), command=self._save_window_command,
         ).pack()
 
         for row_idx in range(4):
