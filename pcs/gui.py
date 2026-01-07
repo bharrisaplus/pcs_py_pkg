@@ -1,7 +1,13 @@
 ''' Show a deck of cards '''
 
-import tkinter
 from turtle import Turtle
+from tkinter import (
+    Frame as tkFrame,
+    Button as tkButton,
+    Label as tkLabel,
+    Tk
+)
+
 
 from ._constants import save_icon_utf8 as floppy_code
 
@@ -20,7 +26,7 @@ class CloseUp():
         # https://www.tcl-lang.org/man/tcl8.6/TkCmd/colors.htm
         self.tkinter_card_colors = ['midnight blue', 'firebrick', 'dark olive green', 'DarkOrange2']
 
-        self.rootWindow = tkinter.Tk()
+        self.rootWindow = Tk()
         self.rootWindow.withdraw()
 
         window_height = int(self.rootWindow.winfo_screenheight() * 0.63)
@@ -33,8 +39,8 @@ class CloseUp():
         self.rootWindow.geometry("{}x{}".format(window_width, window_height))
         self.rootWindow.grid_columnconfigure(0, weight=1)
 
-        self.cardFrame = tkinter.Frame(self.rootWindow, bd=0, highlightthickness=0)
-        self.controlsFrame = tkinter.Frame(self.rootWindow, bd=0, highlightthickness=0, pady=9)
+        self.cardFrame = tkFrame(self.rootWindow, bd=0, highlightthickness=0)
+        self.controlsFrame = tkFrame(self.rootWindow, bd=0, highlightthickness=0, pady=9)
 
         self.cardFrame.grid()
         self.controlsFrame.grid()
@@ -81,14 +87,14 @@ class CloseUp():
 
             When clicked, the saveButton will create an image file of the rootWindow and cardFrame.
         '''
-        tkinter.Button(
+        tkButton(
             self.controlsFrame, relief="flat", font=self.controlsStyle, fg="goldenrod3",
             text=chr(int(floppy_code, 16)), command=self._save_window_command()
         ).pack()
 
         for row_idx in range(4):
             for column_idx, info in enumerate(self.cards_for_display[row_idx*13:(row_idx+1)*13]):
-                tkinter.Label(
+                tkLabel(
                     self.cardFrame, text=info[0], font=self.cardStyle, fg=info[1]
                 ).grid(column=column_idx, row=row_idx)
 
