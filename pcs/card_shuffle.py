@@ -21,10 +21,10 @@ class CardShuffle:
     '''A lean mean card shuffling machine
 
     Attributes:
-        card_pool (list[tuple(str, int)]): The cards to randomize. See _constants.py@_setup_52
+        card_pool (list[int]): The cards to randomize. See _utils.py@_setup_52
         position_pool (list[int]): The potential numbered spots cards can be placed in
         position_count (int): The number of positions
-        mixed_cards (list[tuple(str, int)]): see card_pool
+        mixed_cards (list[int]): see card_pool
         last_cut_position (int|None): Where the last cut was made
     '''
 
@@ -62,7 +62,7 @@ class CardShuffle:
                 * peapod: index of card found next to new deck order neighbor
 
         Args:
-            is_arbitrary (bool): See above (default: `False`)
+            is_arbitrary (bool): See above (default: False)
         '''
 
         cut_position = None
@@ -97,8 +97,11 @@ class CardShuffle:
 
         The card order can optionally include color using ANSI escape codes
 
+        Args:
+            four_color (bool): Whether to use one color pre suite (default: False)
+
         Returns:
-            tuple(list[str], list[str]): See description above.
+            tuple[list[str], list[str]]: See description above.
         """
 
         for_console = []

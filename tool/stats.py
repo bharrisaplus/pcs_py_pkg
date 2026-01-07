@@ -13,7 +13,7 @@ def get_jaro_match_between(mixed_order, known_order):
         known_order (list[str]): The sorted items
 
     Returns:
-        tuple(list[str], list[str]):
+        tuple[list[str], list[str]]:
     '''
 
     tolerance = ( max(len(mixed_order), len(known_order)) // 2 ) - 1
@@ -68,7 +68,7 @@ def get_jaro_edit_distance_from(mixed_order, known_order):
         known_order (list[str]): The sorted items
 
     Returns:
-        tuple(float, tuple(list[str], list[str]), int):
+        tuple[float, tuple[list[str], list[str]], int]:
     '''
 
     mixed_match, known_match = get_jaro_match_between(mixed_order, known_order)
@@ -96,7 +96,7 @@ def count_peapods_from(mixed_order, known_order):
         known_order (list[str]): The sorted items
 
     Returns:
-        tuple(int, int):
+        tuple[int, int]:
     '''
 
     item_count = len(mixed_order)

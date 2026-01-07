@@ -50,7 +50,7 @@ class CloseUp():
         '''Set the points for the crop bounding box
 
         Returns:
-            tuple: (int, int, int, int)
+            tuple[int, int, int, int]
         '''
 
         capture_area_start_x = self.rootWindow.winfo_rootx()
@@ -103,8 +103,8 @@ class CloseUp():
         ''' Create display ready cards
 
         Args:
-            cards (tuple[tuple(str, int)], list[int]]): See _utils.py@_setup_52
-            color_per_suite (bool: Whether to use one color per suite (default: False)
+            cards (list[int]): See _utils.py@_setup_52
+            color_per_suite (bool): Whether to use one color per suite (default: False)
         '''
         _formatted = []
 
