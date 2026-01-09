@@ -1,4 +1,4 @@
-# (P)seudo (C)ard (S)huffler - python package
+# (P)seudo (C)ard (S)huffler ![icon](pcs/assets/sqwiggle_w_24.png) - python package
 For producing a pseudo-randomized list of playing cards (♠️♦️♣️♥️).
 
 * [Overview](#overview)

@@ -6,6 +6,7 @@ from tkinter import (
     Frame as tkFrame,
     Button as tkButton,
     Canvas as tkCanvas,
+    PhotoImage as tkImage,
     EventType as tkEventType,
     Event as tkEvent,
     Tk
@@ -14,7 +15,9 @@ from tkinter import (
 
 from ._constants import (
     save_icon_utf8 as floppy_code,
-    boundingBoxType as boundingBox
+    boundingBoxType as boundingBox,
+    sqwiggle_b16_path as sqwiggle_b16,
+    sqwiggle_b32_path as sqwiggle_b32
 )
 
 from ._utils import (
@@ -69,6 +72,7 @@ class CloseUp():
         self.rootWindow.geometry("{}x{}".format(window_width, window_height))
         self.rootWindow.grid_columnconfigure(0, weight=1)
         self.rootWindow.configure(bg=tk_bg_colors[0])
+        self.rootWindow.wm_iconphoto(True, tkImage(file=sqwiggle_b16), tkImage(file=sqwiggle_b32))
 
         self.cardCanvas = tkCanvas(self.rootWindow, name='card_canvas',
             bd=0, highlightthickness=0, bg=tk_bg_colors[0],
