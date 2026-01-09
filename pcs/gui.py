@@ -1,10 +1,12 @@
 ''' Show a deck of cards '''
 
 from turtle import Turtle
+from tkinter.ttk import Combobox as tkCombobox
 from tkinter import (
     Frame as tkFrame,
     Button as tkButton,
     Canvas as tkCanvas,
+    Event as tkEvent,
     Tk
 )
 
@@ -35,7 +37,7 @@ class CloseUp():
                 [{Cards 14 - 26}]
                 [{Cards 27 - 39}]
                 [{Cards 40 - 52}]
-            controlFrame:
+            controlsFrame:
                 [{saveButton}]
 
         When clicked, the saveButton will create an image file of the rootWindow and cardFrame.
@@ -65,15 +67,35 @@ class CloseUp():
         self.rootWindow.title(window_title)
         self.rootWindow.geometry("{}x{}".format(window_width, window_height))
         self.rootWindow.grid_columnconfigure(0, weight=1)
+        self.rootWindow.configure(bg=tk_bg_colors[0])
 
         self.cardCanvas = tkCanvas(self.rootWindow, name='card_canvas',
-            bd=0, highlightthickness=0,
+            bd=0, highlightthickness=0, bg=tk_bg_colors[0],
             width=(window_width * 0.85) // 1, height=(window_height * 0.85) // 1
         )
-        self.controlsFrame = tkFrame(self.rootWindow, bd=0, highlightthickness=0, pady=9)
+        self.controlsFrame = tkFrame(self.rootWindow, name='controls_frame',
+            bd=0, highlightthickness=0, bg=tk_bg_colors[0],
+            padx=(window_width * 0.025), pady=(window_width * 0.025)
+        )
 
         self.cardCanvas.grid()
-        self.controlsFrame.grid()
+        self.controlsFrame.grid(sticky='ew')
+
+    def _update_background(self, _event: tkEvent) -> None:
+        ''' Seclect handler for Combobox to upate the colors for various widgets based on user pick '''
+
+        self.rootWindow.update_idletasks()
+
+        selected_option = _event.widget.get()
+
+        if self.rootWindow.cget('bg') != selected_option:
+            self.rootWindow.configure(bg=selected_option)
+            self.cardCanvas.configure(bg=selected_option)
+            self.controlsFrame.configure(bg=selected_option)
+
+            save_button = self.controlsFrame.nametowidget("save_button")
+
+            if save_button: save_button.configure(bg=selected_option, activebackground=selected_option)
 
     def get_coordinates_for_capture(self) -> boundingBox:
         ''' Determine where to capture screen at. Helper for CloseUp._save_window_command '''
@@ -97,13 +119,21 @@ class CloseUp():
     def show_window(self) -> None:
         ''' Curtain Up '''
 
-        tkButton(
-            self.controlsFrame, relief="flat", font=self.controlsStyle, fg="goldenrod3",
-            text=chr(int(floppy_code, 16)), command=self._save_window_command,
-        ).pack()
+        backgroundDropdown = tkCombobox(self.controlsFrame, values=tk_bg_colors, state='readonly')
+
+        backgroundDropdown.pack(side='left')
+        backgroundDropdown.current(0)
+
+        tkButton(self.controlsFrame, name='save_button',
+            text=chr(int(floppy_code, 16)), relief="flat", font=self.controlsStyle, bd=0,
+            bg=tk_bg_colors[0], fg="dim gray", activebackground=tk_bg_colors[0],
+            activeforeground='dim gray', command=self._save_window_command,
+        ).pack(side='right')
 
         cardCanvas_width = self.cardCanvas.winfo_reqwidth()
         cardCanvas_height = self.cardCanvas.winfo_reqheight()
+
+        backgroundDropdown.bind('<<ComboboxSelected>>', self._update_background)
 
         for row_idx in range(4):
             for column_idx, info in enumerate(self.cards_for_display[row_idx*13:(row_idx+1)*13]):
