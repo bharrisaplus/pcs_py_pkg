@@ -102,9 +102,9 @@ class CloseUp():
 
         capture_area_start_x = self.rootWindow.winfo_rootx()
         capture_area_start_y = self.rootWindow.winfo_rooty()
-        offset_y = self.controlsFrame.winfo_height()
+
         capture_area_end_x = capture_area_start_x + self.rootWindow.winfo_width()
-        capture_area_end_y = capture_area_start_y + self.rootWindow.winfo_height() - offset_y
+        capture_area_end_y = capture_area_start_y + self.cardCanvas.winfo_height()
 
         return (capture_area_start_x, capture_area_start_y, capture_area_end_x, capture_area_end_y)
 
