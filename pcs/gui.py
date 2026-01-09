@@ -64,7 +64,7 @@ class CloseUp():
         window_height = int(self.rootWindow.winfo_screenheight() * 0.63)
         window_width = int(self.rootWindow.winfo_screenwidth() * 0.63)
         self.cardStyle = ('Consolas', int(window_height * 0.1325))
-        self.controlsStyle = ('Consolas', int(window_height * 0.033))
+        self.controlsStyle = ('Consolas', int(window_height * 0.03))
         self.cards_for_display = None
         self.card_tag = 'card'
 
