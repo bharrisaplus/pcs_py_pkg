@@ -4,7 +4,7 @@ from turtle import Turtle
 from tkinter import (
     Frame as tkFrame,
     Button as tkButton,
-    Label as tkLabel,
+    Canvas as tkCanvas,
     Tk
 )
 
@@ -60,15 +60,19 @@ class CloseUp():
         self.cardStyle = ('Consolas', int(window_height * 0.1325))
         self.controlsStyle = ('Consolas', int(window_height * 0.033))
         self.cards_for_display = None
+        self.card_tag = 'card'
 
         self.rootWindow.title(window_title)
         self.rootWindow.geometry("{}x{}".format(window_width, window_height))
         self.rootWindow.grid_columnconfigure(0, weight=1)
 
-        self.cardFrame = tkFrame(self.rootWindow, bd=0, highlightthickness=0)
+        self.cardCanvas = tkCanvas(self.rootWindow, name='card_canvas',
+            bd=0, highlightthickness=0,
+            width=(window_width * 0.85) // 1, height=(window_height * 0.85) // 1
+        )
         self.controlsFrame = tkFrame(self.rootWindow, bd=0, highlightthickness=0, pady=9)
 
-        self.cardFrame.grid()
+        self.cardCanvas.grid()
         self.controlsFrame.grid()
 
     def get_coordinates_for_capture(self) -> boundingBox:
@@ -98,11 +102,17 @@ class CloseUp():
             text=chr(int(floppy_code, 16)), command=self._save_window_command,
         ).pack()
 
+        cardCanvas_width = self.cardCanvas.winfo_reqwidth()
+        cardCanvas_height = self.cardCanvas.winfo_reqheight()
+
         for row_idx in range(4):
             for column_idx, info in enumerate(self.cards_for_display[row_idx*13:(row_idx+1)*13]):
-                tkLabel(
-                    self.cardFrame, text=info[0], font=self.cardStyle, fg=info[1]
-                ).grid(column=column_idx, row=row_idx)
+                pos_x = column_idx * (cardCanvas_width // 13)
+                pos_y = row_idx * (cardCanvas_height // 4)
+
+                self.cardCanvas.create_text(pos_x, pos_y, anchor="nw", tags=self.card_tag,
+                    text=info[0], font=self.cardStyle, fill=info[1]
+                )
 
         self.rootWindow.mainloop()
 
