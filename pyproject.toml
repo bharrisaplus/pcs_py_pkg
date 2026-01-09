@@ -24,8 +24,7 @@ authors = [
 ]
 
 [project.urls]
-"Homepage" = 'https://pcs_py.github.io/'
-"Repository" = 'https://github.com/bharrisaplus/pcs_py'
+"Repository" = 'https://github.com/bharrisaplus/pcs_py_pkg'
 
 [project.scripts]
 pcs = "pcs.command_line:go"
