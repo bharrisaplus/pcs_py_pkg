@@ -22,7 +22,7 @@ from ._utils import (
 
 # https://www.tcl-lang.org/man/tcl8.6/TkCmd/colors.htm
 tk_card_colors: list[str] = ['midnight blue', 'firebrick', 'dark olive green', 'DarkOrange2']
-tk_bg_colors: list[str] = ["Ivory2"]
+tk_bg_colors: list[str] = ['ivory2', 'ivory3', 'snow', 'AntiqueWhite2', 'bisque2', 'cornsilk2', 'honeydew2', 'lavender blush', 'LightYellow2']
 
 
 class CloseUp():
