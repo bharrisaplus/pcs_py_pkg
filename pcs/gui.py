@@ -1,6 +1,5 @@
 ''' Show a deck of cards '''
 
-from turtle import Turtle
 from tkinter.ttk import Combobox as tkCombobox
 from tkinter import (
     Frame as tkFrame,
@@ -188,27 +187,3 @@ class CloseUp():
             ))
 
         self.cards_for_display = _formatted
-
-
-def hello_tutle() -> None:
-    ''' Print card symbols to screen '''
-
-    s1 = chr(int(card_to_utf8.get(('spade', 1)), 16))
-    d1 = chr(int(card_to_utf8.get(('diamond', 1)), 16))
-    style = ('Consolas', 45)
-    tooter = Turtle()
-
-    tooter.screen.title('pcs: hello tooter turtle')
-    tooter.penup()
-    tooter.color('deep pink')
-    tooter.goto(0, 30)
-    tooter.write(s1, font=style, move=True)
-    tooter.goto(50, 30)
-    tooter.write(d1, font=style, move=True)
-    tooter.hideturtle()
-
-    tooter.screen.mainloop()
-
-
-if __name__ == '__main__':
-    hello_tutle()
