@@ -29,6 +29,9 @@ authors = [
 [project.scripts]
 pcs = "pcs.command_line:go"
 
+[tool.setuptools.packages.find]
+where = ["pcs"]
+
 [tool.setuptools]
 packages = ['pcs']
 
