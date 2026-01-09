@@ -4,7 +4,7 @@ import argparse
 import pcs
 
 
-def go():
+def go() -> None:
     '''Start the program
 
     options:

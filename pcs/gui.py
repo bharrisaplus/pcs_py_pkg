@@ -9,7 +9,10 @@ from tkinter import (
 )
 
 
-from ._constants import save_icon_utf8 as floppy_code
+from ._constants import (
+    save_icon_utf8 as floppy_code,
+    boundingBoxType as boundingBox
+)
 
 from ._utils import (
     _capture_tkinter as screen_grab,
@@ -18,14 +21,27 @@ from ._utils import (
 )
 
 # https://www.tcl-lang.org/man/tcl8.6/TkCmd/colors.htm
-tk_card_colors = ['midnight blue', 'firebrick', 'dark olive green', 'DarkOrange2']
-tk_bg_colors = ["Ivory2"]
+tk_card_colors: list[str] = ['midnight blue', 'firebrick', 'dark olive green', 'DarkOrange2']
+tk_bg_colors: list[str] = ["Ivory2"]
 
 
 class CloseUp():
-    ''' A view of the card deck '''
+    ''' A view of the card deck
 
-    def __init__(self, window_title, screen_grab_filename='shuffled'):
+    Show the cards using utf-8 symbols. Create widgets in tkinter based on the layout below:
+        rootWindow
+            cardFrame:
+                [{Cards 1 - 13}]
+                [{Cards 14 - 26}]
+                [{Cards 27 - 39}]
+                [{Cards 40 - 52}]
+            controlFrame:
+                [{saveButton}]
+
+        When clicked, the saveButton will create an image file of the rootWindow and cardFrame.
+    '''
+
+    def __init__(self, window_title, screen_grab_filename='shuffled') -> None:
         self.screen_grab_filename = screen_grab_filename
 
         self.rootWindow = Tk()
@@ -46,12 +62,8 @@ class CloseUp():
         self.cardFrame.grid()
         self.controlsFrame.grid()
 
-    def get_coordinates_for_capture(self):
-        '''Set the points for the crop bounding box
-
-        Returns:
-            tuple[int, int, int, int]
-        '''
+    def get_coordinates_for_capture(self) -> boundingBox:
+        ''' Determine where to capture screen at. Helper for CloseUp._save_window_command '''
 
         capture_area_start_x = self.rootWindow.winfo_rootx()
         capture_area_start_y = self.rootWindow.winfo_rooty()
@@ -61,7 +73,7 @@ class CloseUp():
 
         return (capture_area_start_x, capture_area_start_y, capture_area_end_x, capture_area_end_y)
 
-    def _save_window_command(self):
+    def _save_window_command(self) -> None:
         ''' Click handler to grab screenshot then close window '''
 
         self.rootWindow.update_idletasks()
@@ -69,21 +81,8 @@ class CloseUp():
         self.rootWindow.destroy()
 
 
-    def show_window(self):
-        ''' Display shuffled cards
-
-        Show the cards using utf-8 symbols, create a layout in tkinter like:
-            rootWindow
-                cardFrame:
-                    [{Cards 1 - 13}]
-                    [{Cards 14 - 26}]
-                    [{Cards 27 - 39}]
-                    [{Cards 40 - 52}]
-                controlFrame:
-                    [{saveButton}]
-
-            When clicked, the saveButton will create an image file of the rootWindow and cardFrame.
-        '''
+    def show_window(self) -> None:
+        ''' Curtain Up '''
 
         tkButton(
             self.controlsFrame, relief="flat", font=self.controlsStyle, fg="goldenrod3",
@@ -99,13 +98,8 @@ class CloseUp():
         self.rootWindow.mainloop()
 
 
-    def load_cards(self, cards, color_per_suite=False):
-        ''' Create display ready cards
-
-        Args:
-            cards (list[int]): See _utils.py@_setup_52
-            color_per_suite (bool): Whether to use one color per suite (default: False)
-        '''
+    def load_cards(self, cards: list[int], color_per_suite: bool = False) -> None:
+        ''' Create display ready cards '''
         _formatted = []
 
         for card in cards:
@@ -116,7 +110,7 @@ class CloseUp():
         self.cards_for_display = _formatted
 
 
-def hello_tutle():
+def hello_tutle() -> None:
     ''' Print card symbols to screen '''
 
     s1 = chr(int(card_to_utf8.get(('spade', 1)), 16))

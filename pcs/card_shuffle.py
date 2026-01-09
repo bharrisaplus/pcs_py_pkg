@@ -13,8 +13,8 @@ from ._utils import (
 from .gui import CloseUp
 
 # https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
-console_card_colors = ['\033[36m', '\033[31m', '\033[32m', '\033[33m' ]
-console_color_reset = '\033[0m'
+console_card_colors: list[str] = ['\033[36m', '\033[31m', '\033[32m', '\033[33m' ]
+console_color_reset: str = '\033[0m'
 
 
 class CardShuffle:
@@ -35,10 +35,11 @@ class CardShuffle:
         self.last_cut_position = None
 
 
-    def shuffle_cards(self):
+    def shuffle_cards(self) -> None:
         '''Randomize the order of given cards and place at random in a new deck
 
-        Having a bank of cards and positions, pick a random card from both banks for a new order.
+        Having a bank of both cards and positions, for each position pick a random card and
+            a random position from their respective banks to create a new order.
         '''
 
         random_cards = random.sample(population=self.card_pool, k=len(self.card_pool))
@@ -53,16 +54,13 @@ class CardShuffle:
             random_cards.remove(card_to_place)
             random_positions.remove(position_to_use)
 
-    def maybe_cut(self, is_arbitrary=False):
+    def maybe_cut(self, is_arbitrary: bool = False) -> None:
         '''Rearrange the deck at a determined point
 
         From the determined point take every card before the point and move it to the back of
             the list. The determined point can be picked by:
                 * arbitrary: index from one of 1-3 randomly selected cards from the deck
                 * peapod: index of card found next to new deck order neighbor
-
-        Args:
-            is_arbitrary (bool): See above (default: False)
         '''
 
         cut_position = None
@@ -90,18 +88,12 @@ class CardShuffle:
 
         self.last_cut_position = cut_position
 
-    def cards_as_text(self, four_color=False):
+    def cards_as_text(self, four_color: bool = False) -> tuple[list[int], list[int]]:
         """ Create plain-text output of the card order
     
         Looks like: [ "1) Jack of Spade", "2) Four of Club" ]
 
         The card order can optionally include color using ANSI escape codes
-
-        Args:
-            four_color (bool): Whether to use one color pre suite (default: False)
-
-        Returns:
-            tuple[list[str], list[str]]: See description above.
         """
 
         for_console = []
@@ -122,13 +114,8 @@ class CardShuffle:
 
         return for_console, for_file
 
-    def display_decklist_in_console(self, to_file=False, four_color=False):
-        '''Output card order to the screen and maybe a file.
-
-        Args:
-            to_file (bool): Whether or not to create a file. (default: False)
-            four_color (bool): Whether to use one color pre suite (default: False)
-        '''
+    def display_decklist_in_console(self, to_file: bool = False, four_color: bool = False) -> None:
+        ''' Output card order to the screen and maybe a file '''
 
         console_catalog, file_catalog = self.cards_as_text(four_color=four_color)
 
@@ -142,7 +129,7 @@ class CardShuffle:
 
             print("\nDecklist written to 'shuffled.decklist.txt'.")
 
-    def ndo_example(self):
+    def ndo_example(self) -> None:
         ''' Print cards in new deck order: (♠️:A-K, ♦️:A-K, ♣️:K-A, ♥️:K-A) '''
 
         pad = CloseUp(window_title="pcs: ndo", screen_grab_filename="ndo")
@@ -150,12 +137,8 @@ class CardShuffle:
         pad.load_cards(self.card_pool, color_per_suite=True)
         pad.show_window()
 
-    def display_decklist_in_gui(self, four_color=False):
-        '''Show the shuffled cards using utf-8 symbols
-
-        Args:
-            four_color (bool): Whether to use one color pre suite (default: False)
-        '''
+    def display_decklist_in_gui(self, four_color: bool = False) -> None:
+        ''' Show the shuffled cards using utf-8 symbols '''
 
         pad = CloseUp(window_title="pcs: pseudo card shuffle")
 
@@ -163,7 +146,7 @@ class CardShuffle:
         pad.show_window()
 
 
-def card_shuffle(cut_deck=False, arbitrary_cut=False):
+def card_shuffle(cut_deck: bool = False, arbitrary_cut: bool = False) -> list[str]:
     ''' Shortcut to quickly get a random list of cards '''
 
     dealer = CardShuffle()
