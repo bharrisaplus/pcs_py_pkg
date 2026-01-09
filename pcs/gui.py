@@ -39,6 +39,15 @@ class CloseUp():
                 [{saveButton}]
 
         When clicked, the saveButton will create an image file of the rootWindow and cardFrame.
+
+    Attributes:
+        rootWindow (Tk): Main widget. About half the screen
+        cardFrame (tkFrame): Where cards render. About 4/5 of the rootWindow height
+        controlsFrame (tkFrame): Where the save button renders. About 1/5 of the rootwindow height
+        cardStyle (tuple[str, int]): Font family and font size for cards
+        controlsStyle (tuple[str, int]): Font family and font size for save button
+        cards_for_display (list[tuple[chr, int]]): Data to render the card
+        screen_grab_filename (str): What to call the saved image
     '''
 
     def __init__(self, window_title, screen_grab_filename='shuffled') -> None:
