@@ -123,7 +123,8 @@ class CloseUp():
 
             save_button = self.controlsFrame.nametowidget("save_button")
 
-            if save_button: save_button.configure(bg=selected_option, activebackground=selected_option)
+            if save_button:
+                save_button.configure(bg=selected_option, activebackground=selected_option)
 
     def get_coordinates_for_capture(self) -> boundingBox:
         ''' Determine where to capture screen at. Helper for CloseUp._save_window_command '''
