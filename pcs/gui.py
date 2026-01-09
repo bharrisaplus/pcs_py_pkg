@@ -6,6 +6,7 @@ from tkinter import (
     Frame as tkFrame,
     Button as tkButton,
     Canvas as tkCanvas,
+    EventType as tkEventType,
     Event as tkEvent,
     Tk
 )
@@ -81,6 +82,30 @@ class CloseUp():
         self.cardCanvas.grid()
         self.controlsFrame.grid(sticky='ew')
 
+        self._last_tilt_event = None
+        self._last_untilt_event = None
+
+    def _slant_card(self, _event: tkEvent) -> None:
+        ''' Create effect where cards move as mouse hovers over '''
+
+        _item_id = _event.widget.find_withtag("current")
+
+        if _event.type == tkEventType.Enter:
+            if self._last_tilt_event:
+                _event.widget.after_cancel(self._last_tilt_event)
+
+            self._last_tilt_event = _event.widget.after_idle(
+                lambda: _event.widget.itemconfig(_item_id, angle=2.8125) if _item_id else None
+            )
+        else:
+            if self._last_untilt_event:
+                _event.widget.after_cancel(self._last_untilt_event)
+
+            self._last_untilt_event = _event.widget.after_idle(
+                lambda: _event.widget.itemconfig(_item_id, angle=0) if _item_id else None
+            )
+
+
     def _update_background(self, _event: tkEvent) -> None:
         ''' Seclect handler for Combobox to upate the colors for various widgets based on user pick '''
 
@@ -134,6 +159,8 @@ class CloseUp():
         cardCanvas_height = self.cardCanvas.winfo_reqheight()
 
         backgroundDropdown.bind('<<ComboboxSelected>>', self._update_background)
+        self.cardCanvas.tag_bind(self.card_tag, "<Enter>", self._slant_card)
+        self.cardCanvas.tag_bind(self.card_tag, "<Leave>", self._slant_card)
 
         for row_idx in range(4):
             for column_idx, info in enumerate(self.cards_for_display[row_idx*13:(row_idx+1)*13]):
