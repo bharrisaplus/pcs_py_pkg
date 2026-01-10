@@ -44,6 +44,7 @@ if __name__ == '__main__':
             testGroup.addTest(shape_spec.ShapeCheck('test_get_card_name'))
             testGroup.addTest(shape_spec.ShapeCheck('test_get_card_symbol'))
             testGroup.addTest(shape_spec.ShapeCheck('test_get_card_color'))
+            testGroup.addTest(shape_spec.ShapeCheck('test_cards_as_text'))
             testGroup.addTest(shape_spec.ShapeCheck('test_shuffle'))
             testGroup.addTest(shape_spec.ShapeCheck('test_cut'))
             testGroup.addTest(shape_spec.ShapeCheck('test_cut_arbitrary'))

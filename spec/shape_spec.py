@@ -1,7 +1,11 @@
 import unittest
+import re
 
 import pcs._utils as PCSUtils
-from pcs.card_shuffle import CardShuffle
+from pcs.card_shuffle import (
+    CardShuffle,
+    console_card_colors
+)
 
 class ShapeCheck(unittest.TestCase):
     def test_get_card_name(self):
@@ -77,6 +81,24 @@ class ShapeCheck(unittest.TestCase):
         self.assertEqual([solution_9, solution_10, solution_11, solution_12], expected_2,
             "The color of a card should be retrieved based on the ndo position of the card"
         )
+
+
+    def test_cards_as_text(self):
+        test_rgx = r"^((5)([0-2])|([1-4]?)([0-9]{1}))\)\s((ace)|(one)|(two)|(three)|(four)|(five)|(six)|(seven)|(eight)|(nine)|(ten)|(jack)|(queen)|(king))\sof\s((spade)|(diamond)|(club)|(heart))$"
+        card_order = list(range(52))
+        test_dealer = CardShuffle()
+        
+        test_dealer.shuffle_cards()
+
+        cards_for_console, cards_for_file = test_dealer.cards_as_text()
+        ccards_for_console, ccards_for_file = test_dealer.cards_as_text(four_color=True)
+        maybe_color_card_text = ccards_for_console[0]
+
+        self.assertEqual(len(cards_for_console), len(cards_for_file),"The lines of text should match the number of cards")
+        self.assertRegex(cards_for_console[0], test_rgx, "The lines of text should match regex")
+        self.assertRegex(cards_for_file[0], test_rgx, "The lines of text should match regex")
+        self.assertRegex(ccards_for_file[0], test_rgx, "The lines of text should match regex")
+        self.assertTrue(any(x in maybe_color_card_text for x in console_card_colors), "The text should contain color")
 
 
     def test_shuffle(self):
