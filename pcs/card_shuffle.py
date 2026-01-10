@@ -13,7 +13,7 @@ from ._utils import (
 from .gui import CloseUp
 
 # https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
-console_card_colors: list[str] = ['\033[36m', '\033[31m', '\033[32m', '\033[33m' ]
+console_card_colors: list[str] = ['\033[36m', '\033[31m', '\033[32m', '\033[33m']
 console_color_reset: str = '\033[0m'
 
 
