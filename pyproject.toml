@@ -29,12 +29,12 @@ authors = [
 [project.scripts]
 pcs = "pcs.command_line:go"
 
-[tool.setuptools.packages.find]
-where = ["pcs"]
-
 [tool.setuptools]
-packages = ['pcs']
+packages = ["pcs"]
+
+[tool.setuptools.package-data]
+pcs = ["assets/sqwiggle_b_16.png", "assets/sqwiggle_b_32.png"]
 
 [tool.setuptools.dynamic]
 version = { attr = 'pcs.__meta__.__version__' }
-readme = { file = [ "README.rst" ] }
+readme = { file = [ "README.md" ] }
