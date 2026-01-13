@@ -43,18 +43,16 @@ Outputs the list of cards to the console and optionally to a file.
 With the package installed:
 ```
 # some_file.py
-from pcs import CardShuffle, card_shuffle # OR import pcs
+from pcs import CardShuffle, card_shuffle
+import pcs
 
 dealer = CardShuffle() # OR pcs.CardShuffle
 
 dealer.shuffle_cards()
 
 print(dealer.cards_text())
-
-shuffled_cards = card_shuffle() # OR pcs.card_shuffle
-
-print(shuffled_cards)
-
+print(card_shuffle())
+print(pcs.card_shuffle())
 
 ```
 
@@ -149,10 +147,6 @@ options:
   -n, --ndo        Flag to set for displaying demo using tkinter. Other options are ignored when set.
   -c, --cut        Flag to set for cutting the deck after the shuffle at a consecutive pair if found.
   -a, --arbitrary  Flag to set for cutting the deck after the shuffle at a random spot.
-
-# OR
-
-$ pipx pcs -h
 
 # OR 
 
