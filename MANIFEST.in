@@ -1,2 +1,5 @@
+include documentation/pypi/README.rst
 include pcs/assets/sqwiggle_b_16.png
 include pcs/assets/sqwiggle_b_32.png
+
+exclude README.md

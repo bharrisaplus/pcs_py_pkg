@@ -3,7 +3,7 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "pcs"
+name = "pseudo_card_shuffle"
 description = "For producing a pseudo-randomized list of playing cards (♠️♦️♣️♥️). A (p)seudo (c)ard (s)huffle."
 dynamic = [ "version", "readme" ]
 
@@ -34,4 +34,4 @@ packages = ["pcs"]
 
 [tool.setuptools.dynamic]
 version = { attr = 'pcs.__meta__.__version__' }
-readme = { file = [ "documentation/pypi/README.md" ] }
+readme = { file = [ "documentation/pypi/README.rst" ] }
