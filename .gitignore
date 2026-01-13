@@ -1,4 +1,6 @@
 __pycache__
+dist
+*.egg-info
 *.decklist.txt
 *.decklist.png
 *.sublime-workspace
