@@ -38,7 +38,9 @@ hang-closing = False
 # ignore =
 
 # additional codes for above
-# extend-ignore =
+extend-ignore =
+	E124,
+	E128
 
 # specific pep codes to ignore certain files
 # per-file-ignores =
