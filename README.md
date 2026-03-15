@@ -10,7 +10,7 @@ For producing a pseudo-randomized list of playing cards (♠️♦️♣️♥�
 * [Usage](#usage)
   - [Package](#package)
   - [CLI](#cli)
-    + [Text output only](#console-output-only)
+    + [Console output only](#console-output-only)
     + [Writing to a file](#writing-to-file)
     + [Graphic output](#gui-output)
     + [NDO Example](#ndo)
